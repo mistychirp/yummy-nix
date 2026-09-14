@@ -1,0 +1,43 @@
+// Minimal starting point — tune as you go.
+// Full reference: https://github.com/YaLTeR/niri/wiki/Configuration:-Overview
+
+input {
+    keyboard {
+        xkb {}
+    }
+    touchpad {
+        tap
+        natural-scroll
+    }
+}
+
+layout {
+    gaps 16
+    center-focused-column "never"
+
+    preset-column-widths {
+        proportion 0.33333
+        proportion 0.5
+        proportion 0.66667
+    }
+}
+
+binds {
+    Mod+Return { spawn "alacritty"; }
+    Mod+D { spawn "fuzzel"; }
+    Mod+Q { close-window; }
+    Mod+Shift+E { quit; }
+
+    Print { spawn "sh" "-c" "grim - | wl-copy"; }
+    Mod+Print { spawn "sh" "-c" "grim -g \"$(slurp)\" - | wl-copy"; }
+
+    Mod+Left  { focus-column-left; }
+    Mod+Right { focus-column-right; }
+    Mod+Down  { focus-window-down; }
+    Mod+Up    { focus-window-up; }
+
+    Mod+1 { focus-workspace 1; }
+    Mod+2 { focus-workspace 2; }
+    Mod+3 { focus-workspace 3; }
+    Mod+4 { focus-workspace 4; }
+}
