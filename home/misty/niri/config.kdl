@@ -3,7 +3,9 @@
 
 input {
     keyboard {
-        xkb {}
+        xkb {
+            layout "us,ru"
+        }
     }
     touchpad {
         tap
@@ -24,9 +26,14 @@ layout {
 
 binds {
     Mod+Return { spawn "alacritty"; }
-    Mod+D { spawn "fuzzel"; }
     Mod+Q { close-window; }
     Mod+Shift+E { quit; }
+
+    Mod+Space { switch-layout "next"; }
+
+    Mod+A { spawn "noctalia" "msg" "panel-toggle" "launcher"; }
+    Mod+D { spawn "noctalia" "msg" "panel-toggle" "control-center"; }
+    Mod+W { spawn "noctalia" "msg" "panel-toggle" "wallpaper"; }
 
     Print { spawn "sh" "-c" "grim - | wl-copy"; }
     Mod+Print { spawn "sh" "-c" "grim -g \"$(slurp)\" - | wl-copy"; }
@@ -35,6 +42,15 @@ binds {
     Mod+Right { focus-column-right; }
     Mod+Down  { focus-window-down; }
     Mod+Up    { focus-window-up; }
+
+    Mod+F       { maximize-column; }
+    Mod+Shift+F { fullscreen-window; }
+    Alt+F       { toggle-window-floating; }
+
+    Alt+D { focus-column-right; }
+    Alt+A { focus-column-left; }
+    Alt+W { focus-workspace-up; }
+    Alt+S { focus-workspace-down; }
 
     Mod+1 { focus-workspace 1; }
     Mod+2 { focus-workspace 2; }

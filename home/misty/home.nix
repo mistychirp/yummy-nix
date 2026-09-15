@@ -13,8 +13,10 @@
 
   programs.git = {
     enable = true;
-    userName = "misty"; # TODO: set your display name
-    userEmail = "matveychirkov63@gmail.com";
+    settings.user = {
+      name = "misty"; # TODO: set your display name
+      email = "matveychirkov63@gmail.com";
+    };
   };
 
   # niri itself is enabled system-wide (programs.niri.enable in modules/common.nix);
@@ -23,6 +25,7 @@
 
   programs.noctalia = {
     enable = true;
+    systemd.enable = true;
     settings = {
       theme = {
         mode = "dark";
@@ -43,5 +46,9 @@
       slurp
       brightnessctl
       vivaldi
+      claude-code
+      kdePackages.kate
+      telegram-desktop
+      onlyoffice-desktopeditors
     ]);
 }

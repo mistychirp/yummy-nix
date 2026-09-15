@@ -13,7 +13,9 @@
 
   services.libinput.enable = true;
 
-  programs.light.enable = true;
+  # programs.light was removed from nixpkgs (unmaintained); brightnessctl
+  # (in home.nix packages) plus acpilight's udev rules replace it.
+  hardware.acpilight.enable = true;
 
   hardware.bluetooth.enable = true;
   services.blueman.enable = true;
