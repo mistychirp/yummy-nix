@@ -41,6 +41,10 @@ binds {
     Print { spawn "sh" "-c" "grim - | wl-copy"; }
     Mod+Print { spawn "sh" "-c" "grim -g \"$(slurp)\" - | wl-copy"; }
 
+    Mod+S       { screenshot; }        // partial (interactive selection)
+    Shift+Alt+S { screenshot-window; } // focused window
+    Mod+Shift+S { screenshot-screen; } // full screen
+
     Mod+Left  { focus-column-left; }
     Mod+Right { focus-column-right; }
     Mod+Down  { focus-window-down; }
