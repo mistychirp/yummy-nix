@@ -52,5 +52,6 @@
       onlyoffice-desktopeditors
       vscode
       wine
+      gns3
     ]);
 }
