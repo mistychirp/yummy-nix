@@ -15,7 +15,7 @@
     enable = true;
     settings.user = {
       name = "misty"; # TODO: set your display name
-      email = "matveychirkov63@gmail.com";
+      email = "matveychan88@gmail.com";
     };
   };
 
@@ -50,5 +50,7 @@
       kdePackages.kate
       telegram-desktop
       onlyoffice-desktopeditors
+      vscode
+      wine
     ]);
 }

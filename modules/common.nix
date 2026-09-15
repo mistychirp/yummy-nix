@@ -78,6 +78,20 @@
   environment.systemPackages = (import ./packages.nix { inherit pkgs; }).base;
 
   security.sudo.wheelNeedsPassword = true;
+  # Lets misty run rebuilds (e.g. from Claude Code, which has no TTY for a
+  # sudo password prompt) without a password; everything else on wheel still
+  # needs one.
+  security.sudo.extraRules = [
+    {
+      users = [ "misty" ];
+      commands = [
+        {
+          command = "/run/current-system/sw/bin/nixos-rebuild";
+          options = [ "NOPASSWD" ];
+        }
+      ];
+    }
+  ];
 
   # Set to the release the system was first installed with; do not bump casually.
   system.stateVersion = "26.05";

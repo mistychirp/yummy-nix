@@ -34,6 +34,9 @@ binds {
     Mod+A { spawn "noctalia" "msg" "panel-toggle" "launcher"; }
     Mod+D { spawn "noctalia" "msg" "panel-toggle" "control-center"; }
     Mod+W { spawn "noctalia" "msg" "panel-toggle" "wallpaper"; }
+    Mod+X { spawn "noctalia" "msg" "panel-toggle" "session"; }
+    Mod+V { spawn "noctalia" "msg" "panel-toggle" "clipboard"; }
+    Mod+Shift+L { spawn "noctalia" "msg" "session" "lock"; }
 
     Print { spawn "sh" "-c" "grim - | wl-copy"; }
     Mod+Print { spawn "sh" "-c" "grim -g \"$(slurp)\" - | wl-copy"; }
