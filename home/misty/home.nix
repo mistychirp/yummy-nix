@@ -11,10 +11,21 @@
 
   programs.home-manager.enable = true;
 
+  gtk.enable = true; # required for home.pointerCursor's gtk integration to actually apply
+
+  home.pointerCursor = {
+    enable = true;
+    package = pkgs.bibata-cursors;
+    name = "Bibata-Modern-Classic";
+    size = 24;
+    gtk.enable = true;
+    x11.enable = true; # also covers Xwayland
+  };
+
   programs.git = {
     enable = true;
     settings.user = {
-      name = "misty"; # TODO: set your display name
+      name = "misty";
       email = "matveychan88@gmail.com";
     };
   };
@@ -39,6 +50,7 @@
   home.packages =
     let pkgSets = import ../../modules/packages.nix { inherit pkgs; };
     in pkgSets.infosec ++ pkgSets.dev ++ (with pkgs; [
+      xwayland-satellite
       alacritty
       fuzzel
       wl-clipboard
@@ -52,6 +64,5 @@
       onlyoffice-desktopeditors
       vscode
       wine
-      gns3
     ]);
 }

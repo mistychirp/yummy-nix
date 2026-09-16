@@ -1,6 +1,11 @@
 // Minimal starting point — tune as you go.
 // Full reference: https://github.com/YaLTeR/niri/wiki/Configuration:-Overview
 
+cursor {
+    xcursor-theme "Bibata-Modern-Classic"
+    xcursor-size 24
+}
+
 input {
     keyboard {
         xkb {
@@ -24,6 +29,9 @@ layout {
     }
 }
 
+// Noctalia-managed color scheme, regenerated on theme/wallpaper changes.
+include optional=true "~/.config/niri/noctalia.kdl"
+
 binds {
     Mod+Return { spawn "alacritty"; }
     Mod+Q { close-window; }
@@ -31,12 +39,26 @@ binds {
 
     Mod+Space { switch-layout "next"; }
 
+    Mod+O { toggle-overview; }
+
     Mod+A { spawn "noctalia" "msg" "panel-toggle" "launcher"; }
     Mod+D { spawn "noctalia" "msg" "panel-toggle" "control-center"; }
     Mod+W { spawn "noctalia" "msg" "panel-toggle" "wallpaper"; }
     Mod+X { spawn "noctalia" "msg" "panel-toggle" "session"; }
     Mod+V { spawn "noctalia" "msg" "panel-toggle" "clipboard"; }
     Mod+Shift+L { spawn "noctalia" "msg" "session" "lock"; }
+
+    // Fn-key media/brightness controls, routed through noctalia for OSD feedback.
+    XF86MonBrightnessUp   { spawn "noctalia" "msg" "brightness-up"; }
+    XF86MonBrightnessDown { spawn "noctalia" "msg" "brightness-down"; }
+    XF86AudioRaiseVolume  { spawn "noctalia" "msg" "volume-up"; }
+    XF86AudioLowerVolume  { spawn "noctalia" "msg" "volume-down"; }
+    XF86AudioMute         { spawn "noctalia" "msg" "volume-mute"; }
+    XF86AudioMicMute      { spawn "noctalia" "msg" "mic-mute"; }
+    XF86AudioPlay         { spawn "noctalia" "msg" "media" "toggle"; }
+    XF86AudioNext         { spawn "noctalia" "msg" "media" "next"; }
+    XF86AudioPrev         { spawn "noctalia" "msg" "media" "previous"; }
+    XF86AudioStop         { spawn "noctalia" "msg" "media" "stop"; }
 
     Print { spawn "sh" "-c" "grim - | wl-copy"; }
     Mod+Print { spawn "sh" "-c" "grim -g \"$(slurp)\" - | wl-copy"; }
