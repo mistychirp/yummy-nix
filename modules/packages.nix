@@ -19,6 +19,7 @@
     ripgrep
     fd
     unzip
+    android-tools
   ];
 
   # Starter infosec toolkit — trim/extend as your actual workflow settles.

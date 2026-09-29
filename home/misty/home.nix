@@ -66,6 +66,7 @@
       wine
       gns3-gui
       gns3-server
+      dynamips
       feishin
     ]);
 }

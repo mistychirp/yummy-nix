@@ -16,6 +16,10 @@
   };
   nixpkgs.config.allowUnfree = true;
 
+  # Track the newest stable kernel branch on both machines instead of
+  # nixpkgs' default `linuxPackages` alias (which lags behind).
+  boot.kernelPackages = pkgs.linuxPackages_latest;
+
   time.timeZone = "Europe/Samara";
   i18n.defaultLocale = "en_US.UTF-8";
 
