@@ -7,7 +7,7 @@
 
   networking.hostName = "desktop";
 
-  # host-specific overrides for the 3200G box go here
+  # host-specific overrides for the 3600 box go here
 
   # RGB control (motherboard/fans/RAM). The service also wires up the
   # i2c-dev kernel module + udev rules, so it works without sudo.

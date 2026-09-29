@@ -1,5 +1,5 @@
 {
-  description = "NixOS configs for thinkpad (T460p) and desktop (3200G)";
+  description = "NixOS configs for thinkpad (T460p) and desktop (Ryzen 5 3600 / RX 5700 XT)";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";

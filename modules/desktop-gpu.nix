@@ -1,6 +1,6 @@
 { config, pkgs, lib, ... }:
 
-# Desktop (Ryzen 5 3200G): Vega 8 integrated graphics, amdgpu driver.
+# Desktop (Ryzen 5 3600): RX 5700 XT discrete GPU, amdgpu driver.
 {
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
