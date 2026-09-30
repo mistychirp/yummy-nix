@@ -28,6 +28,7 @@
             ./hosts/thinkpad/configuration.nix
             ./modules/common.nix
             ./modules/laptop.nix
+            ./modules/locales.nix
             home-manager.nixosModules.home-manager
             {
               home-manager.useGlobalPkgs = true;
@@ -45,6 +46,7 @@
             ./hosts/desktop/configuration.nix
             ./modules/common.nix
             ./modules/desktop-gpu.nix
+            ./modules/locales.nix
             home-manager.nixosModules.home-manager
             {
               home-manager.useGlobalPkgs = true;
