@@ -68,5 +68,6 @@
       gns3-server
       dynamips
       feishin
+      p7zip
     ]);
 }
