@@ -13,6 +13,12 @@
 
   gtk.enable = true; # required for home.pointerCursor's gtk integration to actually apply
 
+  # noctalia only sets dconf color-scheme + writes GTK CSS color overrides; it doesn't
+  # flip this flag. Without it, GTK apps and Chromium-based browsers (prefers-color-scheme
+  # for web content) default to light even though the rest of the desktop is dark.
+  gtk.gtk3.extraConfig.gtk-application-prefer-dark-theme = 1;
+  gtk.gtk4.extraConfig.gtk-application-prefer-dark-theme = 1;
+
   home.pointerCursor = {
     enable = true;
     package = pkgs.bibata-cursors;
