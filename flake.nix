@@ -13,6 +13,10 @@
       url = "github:noctalia-dev/noctalia";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    happ-nixos = {
+      url = "github:MrShitFox/happ-nixos";
+    }
   };
 
   outputs = { self, nixpkgs, home-manager, noctalia, ... }@inputs:
