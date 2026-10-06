@@ -20,6 +20,7 @@
     fd
     unzip
     android-tools
+    nodejs # includes npm
   ];
 
   # Starter infosec toolkit — trim/extend as your actual workflow settles.
