@@ -16,6 +16,7 @@
 
     happ-nixos = {
       url = "github:MrShitFox/happ-nixos";
+      flake = false;
     };
   };
 
