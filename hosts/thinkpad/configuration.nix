@@ -1,13 +1,17 @@
-{ config, pkgs, ... }:
+{ config, pkgs, inputs, options, ... }:
 
 {
   imports = [
     ./hardware-configuration.nix
-    ./happ-nixos/happ-module.nix
   ];
 
   networking.hostName = "thinkpad";
-  services.happ.enable = true;
 
   # host-specific overrides for the T460p go here
+  services.v2raya = {
+    enable = true;
+    cliPackage = pkgs.xray;
+  };
+
+  programs.amnezia-vpn.enable = true;
 }
