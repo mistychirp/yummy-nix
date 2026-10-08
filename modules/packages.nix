@@ -45,6 +45,7 @@
   ];
 
   dev = with pkgs; [
-    # TODO: languages/editors/toolchains you actually use
+    python3
+    # TODO: other languages/editors/toolchains you actually use
   ];
 }

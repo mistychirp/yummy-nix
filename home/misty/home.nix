@@ -12,6 +12,9 @@
   programs.home-manager.enable = true;
 
   gtk.enable = true; # required for home.pointerCursor's gtk integration to actually apply
+  # KDE/System Settings keeps (re)writing ~/.gtkrc-2.0, which otherwise makes
+  # home-manager activation fail with "would be clobbered" on every rebuild.
+  gtk.gtk2.force = true;
 
   # noctalia only sets dconf color-scheme + writes GTK CSS color overrides; it doesn't
   # flip this flag. Without it, GTK apps and Chromium-based browsers (prefers-color-scheme
