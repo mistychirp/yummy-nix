@@ -18,6 +18,10 @@ input {
     }
 }
 
+output "DP-1" {
+    scale 1.75
+}
+
 layout {
     gaps 16
     center-focused-column "never"
@@ -27,6 +31,28 @@ layout {
         proportion 0.5
         proportion 0.66667
     }
+}
+
+// Blur behind every window except Vivaldi.
+// Only visible where a window is semitransparent.
+window-rule {
+    exclude app-id="^vivaldi"
+
+    // Keep the focus ring/border from tinting through translucent windows.
+    draw-border-with-background false
+
+    background-effect {
+        blur true
+    }
+}
+
+// Alacritty sets its own background opacity (keeps text opaque);
+// everything else gets made translucent here so the blur shows.
+window-rule {
+    exclude app-id="^vivaldi"
+    exclude app-id="^Alacritty$"
+
+    opacity 0.9
 }
 
 // Noctalia-managed color scheme, regenerated on theme/wallpaper changes.

@@ -36,6 +36,10 @@
   # lets misty run wireshark/dumpcap without sudo
   programs.wireshark.enable = true;
 
+  # Lets prebuilt generic-linux binaries (e.g. the VS Code Claude Code
+  # extension's bundled `claude`) run on NixOS.
+  programs.nix-ld.enable = true;
+
   services.openssh = {
     enable = true;
     settings = {
@@ -51,6 +55,14 @@
 
   programs.noctalia.enable = true;
   programs.noctalia.recommendedServices.enable = true;
+
+  # Fira Sans has no Nerd Font build (Nerd Fonts only patches monospace fonts),
+  # so it's the plain package.
+  fonts.packages = with pkgs; [
+    nerd-fonts.jetbrains-mono
+    nerd-fonts.fira-code
+    fira-sans
+  ];
 
   # Full KDE Plasma, kept as a working fallback session in case niri/noctalia
   # break or you just want a "normal" DE for a bit.

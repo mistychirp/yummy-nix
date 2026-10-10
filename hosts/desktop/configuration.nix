@@ -12,5 +12,5 @@
   # RGB control (motherboard/fans/RAM). The service also wires up the
   # i2c-dev kernel module + udev rules, so it works without sudo.
   services.hardware.openrgb.enable = true;
-  environment.systemPackages = [ pkgs.openrgb ];
+  environment.systemPackages = [ pkgs.openrgb pkgs.modrinth-app pkgs.ddcutil ];
 }

@@ -46,6 +46,15 @@
 
   dev = with pkgs; [
     python3
+
+    # Rust
+    cargo
+    rustc
+    rustfmt
+    clippy
+    rust-analyzer
+    gcc # cargo needs a `cc` to link with
+
     # TODO: other languages/editors/toolchains you actually use
   ];
 }

@@ -3,6 +3,7 @@
 {
   imports = [
     inputs.noctalia.homeModules.default
+    inputs.mprissence.homeManagerModules.default
   ];
 
   home.username = "misty";
@@ -49,10 +50,26 @@
     settings = {
       theme = {
         mode = "dark";
-        source = "builtin";
-        builtin = "Catppuccin";
+        source = "wallpaper";
+        wallpaper_scheme = "m3-content";
+        builtin = "Catppuccin"; # fallback if source is switched back to "builtin"
       };
-      wallpaper.enabled = false; # TODO: point at a wallpaper once you have one
+      wallpaper = {
+        enabled = true;
+        default.path = "/home/misty/Pictures/wallhaven-jeedjw.jpg";
+      };
+    };
+  };
+
+  # Discord rich presence for MPRIS players (~/Documents/mprissence).
+  services.mprissence = {
+    enable = true;
+    settings = {
+      client_id = "1558177000827392060";
+      ignore = [ "firefox" "chromium" "vivaldi" "telegram-desktop" "Telegram" ];
+      show_paused = true;
+      small_image = "nixos-logo";
+      small_text = "Listening on Nix";
     };
   };
 
@@ -73,10 +90,13 @@
       onlyoffice-desktopeditors
       vscode
       wine
+      vesktop
+      obsidian
       gns3-gui
       gns3-server
       dynamips
       feishin
+      deezer-desktop
       p7zip
     ]);
 }
