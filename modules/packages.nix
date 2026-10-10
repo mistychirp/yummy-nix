@@ -41,6 +41,7 @@
     hashcat
     aircrack-ng
     thc-hydra
+    openvpn # TryHackMe / HTB .ovpn profiles: `sudo openvpn file.ovpn`
     burpsuite # unfree, needs nixpkgs.config.allowUnfree (already on in common.nix)
   ];
 
