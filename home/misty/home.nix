@@ -70,6 +70,7 @@
       show_paused = true;
       small_image = "nixos-logo";
       small_text = "Listening on Nix";
+      deezer_contributors = true;
     };
   };
 

@@ -1,5 +1,21 @@
 {
   "nodes": {
+    "craft-launcher": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1791707706,
+        "narHash": "sha256-7JKV52qKtWECsQYBt+cogWIgFqsl/Opz9UVVUvr8lj8=",
+        "owner": "storytold",
+        "repo": "craft-launcher",
+        "rev": "714522d577b95b64497a44bf396b71263957eb77",
+        "type": "github"
+      },
+      "original": {
+        "owner": "storytold",
+        "repo": "craft-launcher",
+        "type": "github"
+      }
+    },
     "home-manager": {
       "inputs": {
         "nixpkgs": [
@@ -27,11 +43,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1791570408,
-        "narHash": "sha256-WcWQ0QhesWdxGglwxUaunFIbWBSAHgHGHFbV+XpbkRM=",
+        "lastModified": 1791714169,
+        "narHash": "sha256-GLU7Dd69+H2ppxAgbexMpw8lJpHA4pDUHyuS0aoZiAo=",
         "owner": "mistychirp",
         "repo": "mprissence",
-        "rev": "d7d9760bb2f780c9b27ac11a12fde13855f8ddbe",
+        "rev": "f5769908506355f864e9a7f3ed2ccd17c68fd360",
         "type": "github"
       },
       "original": {
@@ -78,6 +94,7 @@
     },
     "root": {
       "inputs": {
+        "craft-launcher": "craft-launcher",
         "home-manager": "home-manager",
         "mprissence": "mprissence",
         "nixpkgs": "nixpkgs",

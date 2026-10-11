@@ -77,10 +77,28 @@
       "${pkgs.tuigreet}/bin/tuigreet --time --remember --remember-session";
   };
 
+  # niri doesn't start a polkit authentication agent (Plasma brings its own),
+  # so without this anything needing auth (e.g. mounting a disk in Dolphin)
+  # fails with "PolicyKit authentication system appears to be not available".
+  security.polkit.enable = true;
+  systemd.user.services.polkit-kde-agent = {
+    description = "KDE polkit authentication agent";
+    wantedBy = [ "graphical-session.target" ];
+    after = [ "graphical-session.target" ];
+    partOf = [ "graphical-session.target" ];
+    unitConfig.ConditionEnvironment = "XDG_CURRENT_DESKTOP=niri";
+    serviceConfig = {
+      ExecStart = "${pkgs.kdePackages.polkit-kde-agent-1}/libexec/polkit-kde-authentication-agent-1";
+      Restart = "on-failure";
+    };
+  };
+
   xdg.portal = {
     enable = true;
     extraPortals = [ pkgs.xdg-desktop-portal-gnome ];
   };
+
+  services.flatpak.enable = true;
 
   security.rtkit.enable = true;
   services.pipewire = {
@@ -91,7 +109,10 @@
   };
 
   # services.desktopManager.plasma6.enable already pulls in the full Plasma desktop.
-  environment.systemPackages = (import ./packages.nix { inherit pkgs; }).base;
+  environment.systemPackages = (import ./packages.nix { inherit pkgs; }).base ++ [
+    (pkgs.callPackage ../pkgs/artcraft-launcher.nix { src = inputs.craft-launcher; })
+    pkgs.mpv
+  ];
 
   security.sudo.wheelNeedsPassword = true;
   # Lets misty run rebuilds (e.g. from Claude Code, which has no TTY for a

@@ -18,6 +18,11 @@
       url = "github:mistychirp/mprissence";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    craft-launcher = {
+      url = "github:storytold/craft-launcher";
+      flake = false;
+    };
   };
 
   outputs = { self, nixpkgs, home-manager, noctalia, ... }@inputs:
