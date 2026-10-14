@@ -99,5 +99,8 @@
       feishin
       deezer-desktop
       p7zip
+      libimobiledevice
+      ideviceinstaller
+      altserver-linux
     ]);
 }
