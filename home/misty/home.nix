@@ -92,5 +92,8 @@
       anytype-cli
       opencode
       jq
+      libimobiledevice
+      ideviceinstaller
+      altserver-linux
     ]);
 }
