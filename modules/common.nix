@@ -2,9 +2,11 @@
 
 {
   imports = [
-    inputs.noctalia.nixosModules.default
+    inputs.makshell.nixosModules.default    
   ];
 
+  programs.appimage = { enable = true; binfmt = true; };
+  
   nix.settings = {
     experimental-features = [ "nix-command" "flakes" ];
     warn-dirty = false;
@@ -20,7 +22,7 @@
   # nixpkgs' default `linuxPackages` alias (which lags behind).
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
-  time.timeZone = "Europe/Samara";
+  time.timeZone = "Asia/Baku";
   i18n.defaultLocale = "en_US.UTF-8";
 
   networking.networkmanager.enable = true;
@@ -48,13 +50,20 @@
     };
   };
 
-  # --- Wayland session: niri + noctalia shell, with Plasma as a fallback DE ---
-  programs.niri.enable = true;
-  # niri and plasma6 both want to set the default greetd session; niri wins.
-  services.displayManager.defaultSession = lib.mkForce "niri";
-
-  programs.noctalia.enable = true;
-  programs.noctalia.recommendedServices.enable = true;
+  # --- Wayland session: makshell on KWin, with Plasma as a fallback DE ---
+  # The makshell desktop (github:mistychirp/makshell), as its own login session.
+  programs.makshell.enable = true;
+  # KWallet has no D-Bus activation file for the Secret Service: Plasma starts it itself, and
+  # nothing here does, so apps asking for it would otherwise find no one home.
+  services.dbus.packages = [
+    (pkgs.writeTextDir "share/dbus-1/services/org.freedesktop.secrets.service" ''
+      [D-BUS Service]
+      Name=org.freedesktop.secrets
+      Exec=${pkgs.kdePackages.kwallet}/bin/ksecretd
+    '')
+  ];
+  # Plasma wants to be the default session; makshell is.
+  services.displayManager.defaultSession = lib.mkForce "makshell";
 
   # Fira Sans has no Nerd Font build (Nerd Fonts only patches monospace fonts),
   # so it's the plain package.
@@ -64,41 +73,30 @@
     fira-sans
   ];
 
-  # Full KDE Plasma, kept as a working fallback session in case niri/noctalia
-  # break or you just want a "normal" DE for a bit.
+  # Full KDE Plasma, kept as a working fallback session in case makshell
+  # breaks or you just want a "normal" DE for a bit.
   services.desktopManager.plasma6.enable = true;
 
   services.greetd = {
     enable = true;
     # No --cmd: tuigreet lists every session it finds in wayland-sessions/
-    # xsessions (niri + plasma here) and lets you pick with the arrow keys;
+    # xsessions (makshell + plasma here) and lets you pick with the arrow keys;
     # --remember sticks with whatever you picked last time.
     settings.default_session.command =
       "${pkgs.tuigreet}/bin/tuigreet --time --remember --remember-session";
   };
 
-  # niri doesn't start a polkit authentication agent (Plasma brings its own),
-  # so without this anything needing auth (e.g. mounting a disk in Dolphin)
-  # fails with "PolicyKit authentication system appears to be not available".
   security.polkit.enable = true;
-  systemd.user.services.polkit-kde-agent = {
-    description = "KDE polkit authentication agent";
-    wantedBy = [ "graphical-session.target" ];
-    after = [ "graphical-session.target" ];
-    partOf = [ "graphical-session.target" ];
-    unitConfig.ConditionEnvironment = "XDG_CURRENT_DESKTOP=niri";
-    serviceConfig = {
-      ExecStart = "${pkgs.kdePackages.polkit-kde-agent-1}/libexec/polkit-kde-authentication-agent-1";
-      Restart = "on-failure";
-    };
-  };
 
-  xdg.portal = {
-    enable = true;
-    extraPortals = [ pkgs.xdg-desktop-portal-gnome ];
-  };
+  xdg.portal.enable = true;
 
   services.flatpak.enable = true;
+
+  # USB multiplexing daemon so libimobiledevice can talk to an iPhone.
+  services.usbmuxd.enable = true;
+  # apple-mfi-fastcharge grabs the iPhone first and its config switch races
+  # usbmuxd (set config fails with -110/-71), leaving the phone unconfigured.
+  boot.blacklistedKernelModules = [ "apple-mfi-fastcharge" ];
 
   security.rtkit.enable = true;
   services.pipewire = {

@@ -20,6 +20,7 @@
     fd
     unzip
     android-tools
+    libimobiledevice # iPhone: ideviceinfo / idevicediagnostics (needs services.usbmuxd)
     nodejs # includes npm
   ];
 

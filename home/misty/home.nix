@@ -1,8 +1,7 @@
-{ config, pkgs, inputs, ... }:
+{ config, pkgs, lib, inputs, osConfig, ... }:
 
 {
   imports = [
-    inputs.noctalia.homeModules.default
     inputs.mprissence.homeManagerModules.default
   ];
 
@@ -17,16 +16,13 @@
   # home-manager activation fail with "would be clobbered" on every rebuild.
   gtk.gtk2.force = true;
 
-  # noctalia only sets dconf color-scheme + writes GTK CSS color overrides; it doesn't
-  # flip this flag. Without it, GTK apps and Chromium-based browsers (prefers-color-scheme
-  # for web content) default to light even though the rest of the desktop is dark.
-  gtk.gtk3.extraConfig.gtk-application-prefer-dark-theme = 1;
-  gtk.gtk4.extraConfig.gtk-application-prefer-dark-theme = 1;
+  # Light or dark is makshell's to say (Settings > Appearance), by GNOME's interface settings in
+  # dconf, which outlast the session. A dark flag here would win over it.
 
   home.pointerCursor = {
     enable = true;
-    package = pkgs.bibata-cursors;
-    name = "Bibata-Modern-Classic";
+    package = pkgs.apple-cursor;
+    name = "macOS";
     size = 24;
     gtk.enable = true;
     x11.enable = true; # also covers Xwayland
@@ -38,28 +34,13 @@
       name = "misty";
       email = "matveychan88@gmail.com";
     };
+    # Remember the HTTPS token in the Secret Service (KWallet) instead of
+    # prompting on every push.
+    settings.credential.helper = "${pkgs.gitFull}/bin/git-credential-libsecret";
   };
 
-  # niri itself is enabled system-wide (programs.niri.enable in modules/common.nix);
-  # this just ships the user config.
-  xdg.configFile."niri/config.kdl".source = ./niri/config.kdl;
-
-  programs.noctalia = {
-    enable = true;
-    systemd.enable = true;
-    settings = {
-      theme = {
-        mode = "dark";
-        source = "wallpaper";
-        wallpaper_scheme = "m3-content";
-        builtin = "Catppuccin"; # fallback if source is switched back to "builtin"
-      };
-      wallpaper = {
-        enabled = true;
-        default.path = "/home/misty/Pictures/wallhaven-jeedjw.jpg";
-      };
-    };
-  };
+  # macOS app icons come with makshell, which builds the MacOS-Like themes for the apps there are
+  # into ~/.local/share/icons, and picks the light or dark one.
 
   # Discord rich presence for MPRIS players (~/Documents/mprissence).
   services.mprissence = {
@@ -69,17 +50,20 @@
       ignore = [ "firefox" "chromium" "vivaldi" "telegram-desktop" "Telegram" ];
       show_paused = true;
       small_image = "nixos-logo";
-      small_text = "Listening on Nix";
+      small_text = "Listening on Nix [{player}]";
       deezer_contributors = true;
+      # Feishin's Navidrome covers, via the cover proxy on bun (~/mprissence-covers).
+      navidrome = {
+        server = "http://mistyworks.servebeer.com:4533";
+        cover_url = "https://covers.tail0503bf.ts.net/cover/{id}";
+      };
     };
   };
 
   home.packages =
     let pkgSets = import ../../modules/packages.nix { inherit pkgs; };
     in pkgSets.infosec ++ pkgSets.dev ++ (with pkgs; [
-      xwayland-satellite
       alacritty
-      fuzzel
       wl-clipboard
       grim
       slurp
@@ -99,5 +83,14 @@
       feishin
       deezer-desktop
       p7zip
+      aseprite
+      godot
+      git-lfs
+      # Off until nixpkgs fixes its build: since nixpkgs f9a75f4 (2026-11-05), its node_modules
+      # hash doesn't match.
+      # anytype
+      anytype-cli
+      opencode
+      jq
     ]);
 }

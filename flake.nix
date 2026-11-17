@@ -9,11 +9,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    noctalia = {
-      url = "github:noctalia-dev/noctalia";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     mprissence = {
       url = "github:mistychirp/mprissence";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -23,9 +18,16 @@
       url = "github:storytold/craft-launcher";
       flake = false;
     };
+
+    # The makshell desktop on KWin, as its own login session (modules/common.nix).
+    makshell = {
+      # Over SSH: the repository is private.
+      url = "git+ssh://git@github.com/mistychirp/makshell";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = { self, nixpkgs, home-manager, noctalia, ... }@inputs:
+  outputs = { self, nixpkgs, home-manager, ... }@inputs:
     let
       system = "x86_64-linux";
     in
@@ -58,6 +60,8 @@
             ./modules/common.nix
             ./modules/desktop-gpu.nix
             ./modules/locales.nix
+            ./modules/robco-pmsd.nix
+            ./modules/llm.nix
             home-manager.nixosModules.home-manager
             {
               home-manager.useGlobalPkgs = true;
