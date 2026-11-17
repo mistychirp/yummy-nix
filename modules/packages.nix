@@ -48,6 +48,8 @@
 
   dev = with pkgs; [
     python3
+    codex
+    opencode-desktop
 
     # Rust
     cargo
